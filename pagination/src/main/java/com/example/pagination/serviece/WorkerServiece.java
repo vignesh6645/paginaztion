@@ -9,7 +9,10 @@ import com.example.pagination.respository.WorkerRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 
@@ -36,12 +39,12 @@ public class WorkerServiece {
 
     }
 
-
-   // BaseResponse baseResponse = new BaseResponse();
     public Page<Worker> findWorkerWithPagination(int offset,int pageSize){
         APIResponse apiResponse = new APIResponse();
         Page<Worker> workers =workerRespository.findAll(PageRequest.of(offset, pageSize));
         return  workers;
     }
-
+   public List<Worker> findProductWithSortig(String field){
+        return workerRespository.findAll(Sort.by(Sort.Direction.ASC,field));
+   }
 }

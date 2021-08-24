@@ -22,11 +22,17 @@ public class WorkerController {
 
     @GetMapping("/pagination/{offset}/{pageSize}")
     private APIResponse<Page<Worker>> getWorkerWithPagination
-            (@PathVariable int offset,@PathVariable int pageSize){
+            (@PathVariable int offset,@PathVariable int pageSize) {
         Page<Worker> workerWithPagination = workerServiece.findWorkerWithPagination(offset, pageSize);
-        return  new APIResponse<>(workerWithPagination.getSize(),workerWithPagination);
+        return new APIResponse<>(workerWithPagination.getSize(), workerWithPagination);
 
     }
+    @GetMapping("/{field}")
+    private APIResponse<List<Worker>> getWorkersWithSort(@PathVariable String field){
+     List<Worker> allWorkers = workerServiece.findProductWithSortig(field);
+     return new APIResponse<>(allWorkers.size(),allWorkers);
+    }
+
     @PostMapping("/addWorker")
     public BaseResponse add(@RequestBody WorkerDTO workerDTO){
         return workerServiece.add(workerDTO);
